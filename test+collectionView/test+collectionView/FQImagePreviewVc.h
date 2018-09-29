@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface FQ_CollectionViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
 @interface FQImagePreviewVc : UIViewController
 
 @end
