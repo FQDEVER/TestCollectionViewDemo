@@ -16,7 +16,6 @@
 		B90226E8215B6558003523B2 /* test_collectionViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B90226E7215B6558003523B2 /* test_collectionViewTests.m */; };
 		B90226F3215B6559003523B2 /* test_collectionViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B90226F2215B6559003523B2 /* test_collectionViewUITests.m */; };
 		B9022705215B6572003523B2 /* FQImagePreviewVc.m in Sources */ = {isa = PBXBuildFile; fileRef = B9022702215B6572003523B2 /* FQImagePreviewVc.m */; };
-		B910425B215F1DF700C64D3C /* FQ_CustomCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B9104257215F1DF600C64D3C /* FQ_CustomCollectionViewLayoutAttributes.m */; };
 		B910425C215F1DF700C64D3C /* FQ_CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9104258215F1DF600C64D3C /* FQ_CollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -56,9 +55,7 @@
 		B90226F4215B6559003523B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9022700215B6571003523B2 /* FQImagePreviewVc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FQImagePreviewVc.h; sourceTree = "<group>"; };
 		B9022702215B6572003523B2 /* FQImagePreviewVc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FQImagePreviewVc.m; sourceTree = "<group>"; };
-		B9104257215F1DF600C64D3C /* FQ_CustomCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQ_CustomCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
 		B9104258215F1DF600C64D3C /* FQ_CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FQ_CollectionViewCell.m; sourceTree = "<group>"; };
-		B9104259215F1DF600C64D3C /* FQ_CustomCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQ_CustomCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
 		B910425A215F1DF700C64D3C /* FQ_CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FQ_CollectionViewCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,8 +109,6 @@
 			children = (
 				B910425A215F1DF700C64D3C /* FQ_CollectionViewCell.h */,
 				B9104258215F1DF600C64D3C /* FQ_CollectionViewCell.m */,
-				B9104259215F1DF600C64D3C /* FQ_CustomCollectionViewLayoutAttributes.h */,
-				B9104257215F1DF600C64D3C /* FQ_CustomCollectionViewLayoutAttributes.m */,
 				B90226CE215B654A003523B2 /* AppDelegate.h */,
 				B90226CF215B654A003523B2 /* AppDelegate.m */,
 				B90226D1215B654A003523B2 /* ViewController.h */,
@@ -280,7 +275,6 @@
 				B90226D3215B654A003523B2 /* ViewController.m in Sources */,
 				B90226DE215B6558003523B2 /* main.m in Sources */,
 				B9022705215B6572003523B2 /* FQImagePreviewVc.m in Sources */,
-				B910425B215F1DF700C64D3C /* FQ_CustomCollectionViewLayoutAttributes.m in Sources */,
 				B90226D0215B654A003523B2 /* AppDelegate.m in Sources */,
 				B910425C215F1DF700C64D3C /* FQ_CollectionViewCell.m in Sources */,
 			);

@@ -15,3 +15,14 @@
 @interface FQ_CollectionViewCell : UICollectionViewCell
 
 @end
+
+@interface FQ_CollectionViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@interface FQ_CustomCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes
+
+@property (nonatomic, assign) CGFloat progress;
+
+@end
+

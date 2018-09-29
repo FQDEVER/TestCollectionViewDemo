@@ -7,7 +7,104 @@
 //
 
 #import "FQ_CollectionViewCell.h"
-#import "FQ_CustomCollectionViewLayoutAttributes.h"
+
+@implementation FQ_CustomCollectionViewLayoutAttributes
+
+-(id)copyWithZone:(NSZone *)zone
+{
+    FQ_CustomCollectionViewLayoutAttributes *attributes = [super copyWithZone:zone];
+    attributes.progress = self.progress;
+    return attributes;
+}
+
+@end
+
+
+@interface FQ_CollectionViewFlowLayout()
+
+@property (nonatomic, strong) NSMutableArray *attributesArray;
+
+@end
+
+@implementation FQ_CollectionViewFlowLayout
+
++(Class)layoutAttributesClass
+{
+    return [FQ_CustomCollectionViewLayoutAttributes class];
+}
+
+-(void)prepareLayout
+{
+    [super prepareLayout];
+    
+    [_attributesArray removeAllObjects];
+    
+    NSInteger cellCount = [self.collectionView numberOfItemsInSection:0];
+    //横向间距
+    //self.minimumLineSpacing
+    CGFloat indexX = 0.0f;
+    
+    for (int i = 0; i < cellCount ; ++i) {
+        FQ_CustomCollectionViewLayoutAttributes * layoutAttributes = [FQ_CustomCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
+        
+        layoutAttributes.frame = CGRectMake(indexX, layoutAttributes.frame.origin.y, ScreenW, self.collectionView.bounds.size.height);
+        
+        //明天调整这块.....
+        if (i == [self getSelectCurrentIndex]) {
+            layoutAttributes.progress = [self getScrollProgress];
+        }else if(i == ([self getSelectCurrentIndex] + 1) && [self getSelectCurrentIndex] != cellCount - 1){
+            layoutAttributes.progress = -(1 - [self getScrollProgress]);
+        }else{
+            layoutAttributes.progress = 0.0;
+        }
+        
+        [self.attributesArray addObject:layoutAttributes];
+        
+        indexX = indexX + (ScreenW + self.minimumLineSpacing);
+    }
+    
+    //这次根据情况添加
+    [self.collectionView reloadData];
+}
+
+//2.提供布局属性对象
+-(NSArray<FQ_CustomCollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    return self.attributesArray.copy;
+}
+
+
+//1.提供滚动范围
+-(CGSize)collectionViewContentSize
+{
+    return CGSizeMake((ScreenW + self.minimumLineSpacing) * self.attributesArray.count - self.minimumLineSpacing, self.collectionView.bounds.size.height);
+}
+
+-(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+{
+    return YES;
+}
+
+-(int)getSelectCurrentIndex
+{
+    int selectIndex = self.collectionView.contentOffset.x / (ScreenW + self.minimumLineSpacing);
+    return selectIndex;
+}
+
+-(CGFloat)getScrollProgress{
+    CGFloat progress = self.collectionView.contentOffset.x / (ScreenW + self.minimumLineSpacing) - [self getSelectCurrentIndex];
+    return MAX(MIN(progress, 1), 0) ;
+}
+
+-(NSMutableArray *)attributesArray
+{
+    if (!_attributesArray) {
+        _attributesArray = [NSMutableArray array];
+    }
+    return _attributesArray;
+}
+
+@end
 
 
 @interface FQ_CollectionViewCell()

@@ -8,93 +8,6 @@
 
 #import "FQImagePreviewVc.h"
 #import "FQ_CollectionViewCell.h"
-#import "FQ_CustomCollectionViewLayoutAttributes.h"
-
-@interface FQ_CollectionViewFlowLayout()
-
-@property (nonatomic, strong) NSMutableArray *attributesArray;
-
-@end
-
-@implementation FQ_CollectionViewFlowLayout
-
-+(Class)layoutAttributesClass
-{
-    return [FQ_CustomCollectionViewLayoutAttributes class];
-}
-
--(void)prepareLayout
-{
-    [super prepareLayout];
-    
-    [_attributesArray removeAllObjects];
-    
-    NSInteger cellCount = [self.collectionView numberOfItemsInSection:0];
-    //横向间距
-    //self.minimumLineSpacing
-    CGFloat indexX = 0.0f;
-    
-    for (int i = 0; i < cellCount ; ++i) {
-        FQ_CustomCollectionViewLayoutAttributes * layoutAttributes = [FQ_CustomCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
-        
-        layoutAttributes.frame = CGRectMake(indexX, layoutAttributes.frame.origin.y, ScreenW, self.collectionView.bounds.size.height);
-        
-        //明天调整这块.....
-        if (i == [self getSelectCurrentIndex]) {
-            layoutAttributes.progress = [self getScrollProgress];
-        }else if(i == ([self getSelectCurrentIndex] + 1) && [self getSelectCurrentIndex] != cellCount - 1){
-            layoutAttributes.progress = -(1 - [self getScrollProgress]);
-        }else{
-            layoutAttributes.progress = 0.5;
-        }
-        
-        [self.attributesArray addObject:layoutAttributes];
-        
-        indexX = indexX + (ScreenW + self.minimumLineSpacing);
-    }
-    
-    [self.collectionView reloadData];
-    
-}
-
-//2.提供布局属性对象
--(NSArray<FQ_CustomCollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
-{
-    return self.attributesArray.copy;
-}
-
-
-//1.提供滚动范围
--(CGSize)collectionViewContentSize
-{
-    return CGSizeMake((ScreenW + self.minimumLineSpacing) * self.attributesArray.count - self.minimumLineSpacing, self.collectionView.bounds.size.height);
-}
-
--(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-    return YES;
-}
-
--(int)getSelectCurrentIndex
-{
-    int selectIndex = self.collectionView.contentOffset.x / (ScreenW + self.minimumLineSpacing);
-    return selectIndex;
-}
-
--(CGFloat)getScrollProgress{
-    CGFloat progress = self.collectionView.contentOffset.x / (ScreenW + self.minimumLineSpacing) - [self getSelectCurrentIndex];
-    return MAX(MIN(progress, 1), 0) ;
-}
-
--(NSMutableArray *)attributesArray
-{
-    if (!_attributesArray) {
-        _attributesArray = [NSMutableArray array];
-    }
-    return _attributesArray;
-}
-
-@end
 
 @interface FQImagePreviewVc ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -230,7 +143,7 @@
 
 
 
-//#pragma mark - 方案三.设置collection的宽度.然后在里面在设定一个view.也能达到效果
+//#pragma mark - -方案三:将Cell的宽度设定为屏宽+间距!随后再添加一个类似contentView.设定其宽度为屏宽.背景色设定为黑色即可!因pagingEnabled每次滚动一个屏幕宽.而不是collection的ItemSize的宽度!所以可达效果
 //
 //-(UICollectionView *)collectionView
 //{
@@ -305,8 +218,6 @@
     }
     return cell;
 }
-
-
 
 
 #pragma mark -公共
